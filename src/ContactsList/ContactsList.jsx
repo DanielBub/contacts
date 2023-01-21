@@ -5,7 +5,7 @@ import "./ContactsList.css";
 
 export function ContactsList({ contactsList }) {
   const [contacts, setContacts] = useState(contactsList);
-  const [contactShown, setContactShown] = useState(null); // can you teach me about useState of null?
+  const [contactShown, setContactShown] = useState(null); // can you teach me about useState of null? why do we need both this nad isContactInfoShown?
   const [isContactInfoShown, setIsContactInfoShown] = useState(false);
 
   const CONTACT_INFO_REF = useRef();
@@ -14,15 +14,16 @@ export function ContactsList({ contactsList }) {
 
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (!event.target.closest(CONTACT_INFO_CLASS)) {
+      if (!event.target.closest(CONTACT_INFO_CLASS)) { // why not contains/ischildof?
         setIsContactInfoShown(false);
         setContactShown(null);
       }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
+
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside); // why is this returned and is also listened on before the return? what am I missing
     };
   }, [CONTACT_INFO_REF]);
 
@@ -31,15 +32,18 @@ export function ContactsList({ contactsList }) {
     setContactShown(contact);
   };
 
+  
+  // can you think of an O(1) solution for this?
   const updateContactInfo = (firstName, lastName, number, oldContact) => {
     let contactToUpdate = contacts.find(
-      (contact) => contact.Number === oldContact.Number
+      (contact) => contact.Number === oldContact.Number //consider adding an ID, or passing the contact itself
     );
     contactToUpdate.FirstName = firstName;
     contactToUpdate.LastName = lastName;
     contactToUpdate.Number = number;
   };
 
+  // does this really need to be a function?
   const openNewContactInfo = () => {
     setIsContactInfoShown(true);
   };
@@ -53,6 +57,7 @@ export function ContactsList({ contactsList }) {
     contacts.push(newContact);
   };
 
+  // can you think of an O(1) solution for this?
   const deleteContact = (event, contactToDelete) => {
     setContacts(
       contacts.filter((contact) => contact.Number !== contactToDelete.Number)
@@ -71,7 +76,7 @@ export function ContactsList({ contactsList }) {
             key={contact.Number}
             contact={contact}
             onContactClicked={() => onContactClicked(contact)}
-            deleteContact={deleteContact}
+            deleteContact={deleteContact} //consider using arrow methods all around for cinsistency, passing the contact here as well
           />
         ))}
       </div>
@@ -80,8 +85,8 @@ export function ContactsList({ contactsList }) {
           ref={CONTACT_INFO_REF}
           contact={contactShown}
           setIsContactInfoShown={setIsContactInfoShown}
-          updateContactInfo={contactShown ? updateContactInfo : addNewContact}
-          setContactShown={setContactShown}
+          updateContactInfo={contactShown ? updateContactInfo : addNewContact} //seems like this prop should be called "commitCallback" or something
+          setContactShown={setContactShown} 
         />
       )}
     </div>
