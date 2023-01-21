@@ -9,6 +9,8 @@ export function ContactInfo({
   updateContactInfo,
   setContactShown,
 }) {
+  // can contact every be null? why are there question marks?
+  // should we just not render if contact is null? log an error in that case
   const [firstName, setFirstName] = useState(contact?.FirstName);
   const [lastName, setLastName] = useState(contact?.LastName);
   const [number, setNumber] = useState(contact?.Number);
@@ -19,6 +21,7 @@ export function ContactInfo({
     setContactShown(null);
   };
 
+   // nit: 'onContactInfoKeyDown'
   const onContactInfoKey = (e) => {
     if (e.keyCode === ENTER_KEY_CODE) {
       saveContactInfo();
@@ -34,6 +37,7 @@ export function ContactInfo({
         X
       </div>
       <div>
+        {/* // feels like these 3 inputs can be generalized to a component, or some re-useable code via a function/memoized function */}
         <input
           className="contact-first-name contact-info-element"
           placeholder={contact?.FirstName}

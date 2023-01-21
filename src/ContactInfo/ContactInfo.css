@@ -16,10 +16,12 @@
   border: none;
 }
 
+/* annoying nit: the X is top right for contact, but top left for contactInfo */
+
 .close-contact-info {
   width: fit-content;
   cursor: pointer;
-}
+} 
 
 .save-contact-info {
   width: fit-content;

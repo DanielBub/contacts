@@ -5,7 +5,7 @@ import "./ContactsList.css";
 
 export function ContactsList({ contactsList }) {
   const [contacts, setContacts] = useState(contactsList);
-  const [contactShown, setContactShown] = useState(null);
+  const [contactShown, setContactShown] = useState(null); // can you teach me about useState of null?
   const [isContactInfoShown, setIsContactInfoShown] = useState(false);
 
   const CONTACT_INFO_REF = useRef();

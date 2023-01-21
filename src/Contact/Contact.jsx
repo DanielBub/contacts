@@ -1,5 +1,7 @@
 import "./Contact.css";
 
+// not very easy to understand what each argument is, because this is JS.
+// consider moving to TS, where it's easier to understand what each argument is.
 export function Contact({ contact, onContactClicked, deleteContact }) {
   return (
     <div className="contact" onClick={onContactClicked}>
