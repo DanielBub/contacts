@@ -1,3 +1,5 @@
+// 1.Does this need to be a jsx file?
+
 export const CONTACTS = [
   {
     FirstName: "Liam",

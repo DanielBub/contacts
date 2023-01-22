@@ -11,3 +11,5 @@ function App() {
 }
 
 export default App;
+
+// App does not fill whole screen (vertically), meaning it has wasted space
